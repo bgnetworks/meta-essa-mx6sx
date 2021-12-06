@@ -68,6 +68,10 @@ MACHINE_FEATURES_remove += " \
     rtc \
     "
 
+# Uncompressed image, may consume more space
+# Uncomment if required (to be used by UUU tool)
+# IMAGE_FSTYPES += "wic"
+
 # Setting the root password as toor
 # Disable debug-tweaks before enable this
 # INHERIT += "extrausers"
