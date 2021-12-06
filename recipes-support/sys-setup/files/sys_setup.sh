@@ -13,8 +13,8 @@
 ###################################################################################################
 
 s_utility="/usr/sbin/cryptsetup"
-PASSPHRASE="This isn't a very secure passphrase."
-s_block="/dev/mmcblk1p3" # Update as needed
+PASSPHRASE="This isn't a very secure passphrase." # Temporary passphrase
+s_block="/dev/mmcblk3p3" # SD4 on i.MX 6SX Sabre-SD
 d_key="/data/decrypt.key"
 mpoint="/dmblk"
 cipher="aes-xts-plain64"
@@ -97,6 +97,7 @@ EOF
     # Service status check
     # systemctl status crypt-target
     ###################################################################################################
-} || echo Proceeding without creating authenticated home
 
-shutdown -r +1 "System will restart in 1 minute, save your work ASAP"
+    shutdown -r +1 "System will restart in 1 minute, save your work ASAP"
+
+} || echo " Create a block to encrypt it"
