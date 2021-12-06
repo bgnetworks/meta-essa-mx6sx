@@ -1,0 +1,27 @@
+From c3a93156df697edac88caecee76bdab8a51ca4b6 Mon Sep 17 00:00:00 2001
+From: danie007 <danilselvan@gmail.com>
+Date: Mon, 6 Dec 2021 13:31:52 +0530
+Subject: [PATCH] Enable encrypted boot support
+
+To be enabled along with secure boot configuration
+- For UEI it's to be disabled by default
+
+Signed-off-by: danie007 <danilselvan@gmail.com>
+---
+ configs/mx6sxsabresd_optee_defconfig | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/configs/mx6sxsabresd_optee_defconfig b/configs/mx6sxsabresd_optee_defconfig
+index ee4e36ac05..eb949b4739 100644
+--- a/configs/mx6sxsabresd_optee_defconfig
++++ b/configs/mx6sxsabresd_optee_defconfig
+@@ -113,3 +113,9 @@ CONFIG_EFI_PARTITION=y
+ # Added by Yocto to support the HAB features
+ # (Secure boot)
+ CONFIG_IMX_HAB=y
++
++# Added by Yocto to support the HAB features
++# (Encrypted boot)
++CONFIG_FAT_WRITE=y
++CONFIG_CMD_DEKBLOB=y
++CONFIG_CMD_PRIBLOB=y

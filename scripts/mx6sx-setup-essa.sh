@@ -19,7 +19,6 @@ else
     # Adding extra layer (meta-essa-mx6sx)
     echo "# Custom layer to add HAB & DM-Crypt features" >>conf/bblayers.conf
     echo "BBLAYERS += \" \${BSPDIR}/sources/meta-essa-mx6sx \"" >>conf/bblayers.conf
-    echo "" >>conf/bblayers.conf
 
     # Adding personalized configuration
     cat ../sources/meta-essa-mx6sx/templates/local.conf.append >>conf/local.conf
