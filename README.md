@@ -44,7 +44,7 @@ bitbake imx-image-multimedia
 
 **imx-image-multimedia**: "Builds an i.<d/>MX image with a GUI without any Qt content."
 
-- Use the following for testing purpose: **core-image-base** - _A console-only image that fully supports the target device hardware._
+- Use the **core-image-base** (_A console-only image that fully supports the target device hardware._) for testing purpose. It'll take minimal space and faster to build.
 
 ## Detailed Guide
 

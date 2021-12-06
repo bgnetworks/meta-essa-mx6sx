@@ -9,18 +9,24 @@
 #
 # Copyright (c) 2021 BG Networks, Inc.
 
-. fsl-setup-release.sh $@
+. imx-setup-release.sh $@
 
-echo "" >>conf/bblayers.conf
+if [ $? -ne 0 ]; then
+    echo "imx setup script failed."
+else
+    echo "" >>conf/bblayers.conf
 
-# Adding extra layer (meta-essa-mx6sx)
-echo "" >>conf/bblayers.conf
-echo "# Custom layer to add HAB & DM-Crypt features" >>conf/bblayers.conf
-echo "BBLAYERS += \" \${BSPDIR}/sources/meta-essa-mx6sx \"" >>conf/bblayers.conf
+    # Adding extra layer (meta-essa-mx6sx)
+    echo "# Custom layer to add HAB & DM-Crypt features" >>conf/bblayers.conf
+    echo "BBLAYERS += \" \${BSPDIR}/sources/meta-essa-mx6sx \"" >>conf/bblayers.conf
+    echo "" >>conf/bblayers.conf
 
-# Adding personalized configuration
-cat ../sources/meta-essa-mx6sx/templates/local.conf.append >>conf/local.conf
+    # Adding personalized configuration
+    cat ../sources/meta-essa-mx6sx/templates/local.conf.append >>conf/local.conf
 
-echo ""
-echo "BGN-ESSA Setup completed successfully"
-echo ""
+    if [ $? -ne 0 ]; then
+        echo "Failed to append layers, try manually editing local.conf & bblayers.conf"
+    else
+        echo "BGN-ESSA Setup completed successfully"
+    fi
+fi
