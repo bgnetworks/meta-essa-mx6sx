@@ -1,0 +1,79 @@
+
+# Appended fragment from meta-bgn/meta-mx6sx/templates
+# Optimised build template
+
+PREFERRED_PROVIDER_u-boot = "u-boot-imx"
+PREFERRED_PROVIDER_virtual/bootloader = "u-boot-imx"
+
+PREFERRED_PROVIDER_virtual/kernel = "linux-imx"
+
+VIRTUAL-RUNTIME_init_manager = "systemd"
+VIRTUAL-RUNTIME_initscript = "systemd-compat-units"
+
+IMAGE_OVERHEAD_FACTOR = "5"
+
+# Disabling test utilities
+IMAGE_INSTALL_remove += " \
+    packagegroup-fsl-tools-testapps \
+    wic-tools \
+    "
+
+DISTRO_FEATURES_append = " \
+    systemd \
+    optee \
+    "
+
+# Ripping down unwanted DISTRO features
+DISTRO_FEATURES_remove += " \
+    bluetooth \
+    wifi \
+    3g \
+    opengl \
+    wayland \
+    x11 \
+    nfc \
+    nfs \
+    etx2 \
+    ext3 \
+    jffs2 \
+    alsa \
+    touchscreen \
+    wic-tools \
+    lttng-modules \
+    dbus-test \
+    gnome-desktop-testing \
+    "
+
+# Removing Unused Packages from the image
+PACKAGE_EXCLUDE = " \
+    perl5 \
+    sqlite3 \
+    bluez3 \
+    bluez4\
+    bluez5\
+    wic-tools \
+    lttng-modules \
+    dbus-test \
+    gnome-desktop-testing \
+    "
+
+MACHINE_FEATURES_remove += " \
+    alsa \
+    imx-alsa-plugins \
+    pci \
+    wifi \
+    bluetooth \
+    bcm4339 \
+    bcm43455 \
+    rtc \
+    "
+
+# Setting the root password as toor
+# Disable debug-tweaks before enable this
+# INHERIT += "extrausers"
+# EXTRA_USERS_PARAMS = "usermod -p $(openssl passwd toor) root"
+
+# Having separate download & shared state cache speeds up build and save space
+# Replace $HOME with your home directory
+# DL_DIR = "$HOME/.yocto/downloads/"
+# SSTATE_DIR = "$HOME/.yocto/sstate-cache/imx6/"

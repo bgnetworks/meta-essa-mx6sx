@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+    <include name="imx-5.10.52-2.1.0.xml" />
+
+    <remote fetch="https://github.com/danie007" name="bgn" />
+
+    <project name="meta-essa-mx6sx" remote="bgn" revision="hardknott" path="sources/meta-essa-mx6sx">
+        <linkfile src="scripts/mx6sx-setup-essa.sh" dest="mx6sx-setup-essa.sh" />
+    </project>
+
+</manifest>
