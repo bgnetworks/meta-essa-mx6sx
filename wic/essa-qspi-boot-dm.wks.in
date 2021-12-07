@@ -1,0 +1,24 @@
+# short-description: Create SD card image with a boot partition
+# long-description:
+# Create an image that can be written onto a SD card using dd for use
+# with i.MX SoC family
+# It is assumed that U-Boot resides in QSPI flash
+# It also creates an empty partition which can be later secured by the
+# DM-Integrity or encrypted by the DM-Crypt
+#
+# The disk layout used is:
+#  --- -------------- ----------------------------
+# |   |     boot     |    rootfs   | DM partition |
+#  --- -------------- ----------------------------
+# ^   ^              ^             ^              ^
+# |   |              |             |              |
+# 0  4MiB          16MiB         16MiB +       300MiB
+#                                rootfs +
+#                           IMAGE_EXTRA_SPACE
+#                            (default 10MiB)
+#
+part /boot --source bootimg-partition --ondisk mmcblk --fstype=vfat --label boot --active --align 4096 --size 16
+part / --source rootfs --ondisk mmcblk --fstype=ext4 --label root --align 4096
+part / --size 300 --ondisk mmcblk --fstype=ext4 --label dm_blk --align 8192
+
+bootloader --ptable msdos
