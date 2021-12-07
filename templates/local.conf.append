@@ -4,7 +4,7 @@
 
 # QSPI Boot
 # Enable the following 2 lines to set the boot medium as QSPI
-# ESSA_QSPI_BOOT = 1
+# ESSA_QSPI_BOOT = "1"
 # WKS_FILE = "essa-qspi-boot-dm.wks.in"
 
 PREFERRED_PROVIDER_u-boot = "u-boot-imx"
