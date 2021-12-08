@@ -2,11 +2,6 @@
 # Appended fragment from meta-bgn/meta-mx6sx/templates
 # Optimised build template
 
-# QSPI Boot
-# Enable the following 2 lines to set the boot medium as QSPI
-# ESSA_QSPI_BOOT = "1"
-# WKS_FILE = "essa-qspi-boot-dm.wks.in"
-
 PREFERRED_PROVIDER_u-boot = "u-boot-imx"
 PREFERRED_PROVIDER_virtual/bootloader = "u-boot-imx"
 
@@ -76,6 +71,10 @@ MACHINE_FEATURES_remove += " \
 # Uncompressed image, may consume more space
 # Uncomment if required (to be used by UUU tool)
 # IMAGE_FSTYPES += "wic"
+
+# QSPI Boot
+# Uncomment the following line to set the boot medium as QSPI
+# ESSA_BOOT_MEDIUM = "QSPI"
 
 # Setting the root password as toor
 # Disable debug-tweaks before enable this
