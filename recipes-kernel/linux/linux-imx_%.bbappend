@@ -7,5 +7,4 @@ SRC_URI += "file://0003-cryptographic-API-functions.cfg"
 
 do_configure_append() {
     cat ../*.cfg >>${B}/.config
-    cat ${B}/.config >/home/ux/Desktop/kern.config
 }
