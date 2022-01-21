@@ -1,0 +1,28 @@
+From 74c182a7538498043c6fc9b97d037e77e5431c3c Mon Sep 17 00:00:00 2001
+From: danie007 <daniel.selvan@jasmin-infotech.com>
+Date: Thu, 20 Jan 2022 19:56:17 +0530
+Subject: [PATCH] Fix CAAM RNG
+
+CAAM RNG failed due to inadequate entropy, it's fixed with the help of
+Linux kernel mailing list
+(lore.kernel.org/lkml/YSy%2FPFrem+a7npBy@gmail.com)
+
+Signed-off-by: danie007 <daniel.selvan@jasmin-infotech.com>
+---
+ drivers/crypto/caam/caamrng.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/crypto/caam/caamrng.c b/drivers/crypto/caam/caamrng.c
+index a550e72301c3..bf50318884c3 100644
+--- a/drivers/crypto/caam/caamrng.c
++++ b/drivers/crypto/caam/caamrng.c
+@@ -67,8 +67,7 @@ static u32 *caam_init_desc(u32 *desc, dma_addr_t dst_dma)
+ {
+ 	init_job_desc(desc, 0);	/* + 1 cmd_sz */
+ 	/* Generate random bytes: + 1 cmd_sz */
+-	append_operation(desc, OP_ALG_ALGSEL_RNG | OP_TYPE_CLASS1_ALG |
+-			 OP_ALG_PR_ON);
++	append_operation(desc, OP_ALG_ALGSEL_RNG | OP_TYPE_CLASS1_ALG);
+ 	/* Store bytes: + 1 cmd_sz + caam_ptr_sz  */
+ 	append_fifo_store(desc, dst_dma,
+ 			  CAAM_RNG_MAX_FIFO_STORE_SIZE, FIFOST_TYPE_RNGSTORE);
