@@ -1,9 +1,9 @@
 #!/bin/bash
 #
 # sys_setup.sh
-# Configure system for the first time
+# Encrypt a block with CAAM black key and create services to automount on startup
 #
-# 15.07.2021
+# 20.01.2022
 # Daniel Selvan, Jasmin Infotech
 
 ###################################################################################################
@@ -12,58 +12,61 @@
 
 ###################################################################################################
 
-s_utility="/usr/sbin/cryptsetup"
-PASSPHRASE="This isn't a very secure passphrase." # Temporary passphrase
 s_block="/dev/mmcblk3p3" # SD4 on i.MX 6SX Sabre-SD
-d_key="/data/decrypt.key"
 mpoint="/dmblk"
-cipher="aes-xts-plain64"
-# cipher="aes-cbc-essiv:sha256"
 
 [ -e $s_block ] && {
 
     # (Optional) unmounting & closing the encrypted block
-    umount $mpoint
-    $s_utility close crypt_target
+    umount $mpoint 2>/dev/null
+    dmsetup remove -f crypt_target 2>/dev/null
 
-    # not format the device, but sets up the LUKS device header and
-    # encrypts the master-key with the desired cryptographic options
-    # Passing another argument to read the passphrase from standard input (using -)
-    echo -n "$PASSPHRASE" | $s_utility luksFormat $s_block -c $cipher -
+    # Creating a random black key
+    caam-keygen create enckey ecb -s 16
 
-    # Entering existing password to open enc partition
-    # Open encrypted partition for writing
-    echo -n "$PASSPHRASE" | $s_utility luksOpen $s_block crypt_target -
-    mkfs.ext4 -b 4096 /dev/mapper/crypt_target # Creating ext4 filesystem in encrypted block
-    mkdir -p $mpoint                           # Make sure mount point exists
-    mount /dev/mapper/crypt_target $mpoint     # Mounting encrypted home dir
+    # Adding the black key in kernel keyring
+    cat /data/caam/enckey | keyctl padd logon enckey: @s
 
-    rm -f $d_key 2>/dev/null # Deleting old key, if present
+    # Deleting the black key (NOTE: Black key blob is preserved)
+    rm -f /data/caam/enckey
 
-    CAAM_RNG="/dev/hwrng"
-    # Creating a key file, use CAAM TRNG if present
-    dd bs=512 count=4 if=$([ -f "$CAAM_RNG" ] && echo "$CAAM_RNG" || echo "/dev/urandom") of=$d_key iflag=fullblock
+    # Wiping the block to be encrypted
+    dd if=/dev/zero of=$s_block bs=1M count=32
 
-    # Deny any access for other users than root(read only)
-    chmod 400 $d_key
+    # Encrypting the block with CAAM's black key
+    dmsetup -v create crypt_target --table "0 $(blockdev --getsz $s_block) crypt capi:tk(cbc(aes))-plain :36:logon:enckey: 0 $s_block 0 1 sector_size:512"
 
-    # Adding luks Key file to the block
-    echo -n "$PASSPHRASE" | $s_utility luksAddKey $s_block $d_key -
+    # Creating a filesystem on the encrypted block
+    mkfs.ext4 /dev/mapper/crypt_target
 
-    # Removing luks passphrase used to create the block
-    echo -n "$PASSPHRASE" | $s_utility luksRemoveKey $s_block -
-
-    # decrypting with key file
-    $s_utility luksOpen -d $d_key $s_block crypt_target
+    # Mounting the encrypted block
+    mkdir -p $mpoint
+    mount /dev/mapper/crypt_target $mpoint
 
     echo Creating auto mount service
 
     cat >/usr/crypt_target.sh <<EOF
 #!/bin/bash
-# mounting encrypted home dir
-$s_utility luksOpen -d $d_key $s_block crypt_target
+
+cd /data/caam
+
+# Importing the generated random black key
+caam-keygen import enckey.bb enckey
+
+# Adding the black key in kernel keyring
+cat enckey | keyctl padd logon enckey: @s
+
+# Deleting the imported black key
+rm -f enckey
+
+cd
+
+# Opening the block with CAAM's black key
+dmsetup -v create crypt_target --table "0 $(blockdev --getsz $s_block) crypt capi:tk(cbc(aes))-plain :36:logon:enckey: 0 $s_block 0 1 sector_size:512"
+
+# Mounting the encrypted block
 mkdir -p $mpoint
-/bin/mount /dev/mapper/crypt_target $mpoint
+mount /dev/mapper/crypt_target $mpoint
 EOF
 
     # Deny access for others
@@ -71,7 +74,7 @@ EOF
 
     cat >/etc/systemd/system/crypt-target.service <<EOF
 [Unit]
-Description=Encrypted directory mount script
+Description=Import black key from the black key blob, set it in the kernel keyring, open the DM-Crypt partition with black key and mounts it
 DefaultDependencies=no
 Conflicts=shutdown.target
 After=local-fs.target
@@ -97,7 +100,4 @@ EOF
     # Service status check
     # systemctl status crypt-target
     ###################################################################################################
-
-    shutdown -r +1 "System will restart in 1 minute, save your work ASAP"
-
 } || echo " Create a block to encrypt it"
