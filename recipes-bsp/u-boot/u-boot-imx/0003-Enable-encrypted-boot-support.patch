@@ -1,12 +1,12 @@
 From c3a93156df697edac88caecee76bdab8a51ca4b6 Mon Sep 17 00:00:00 2001
-From: danie007 <danilselvan@gmail.com>
+From: danie007 <daniel.selvan@jasmin-infotech.com>
 Date: Mon, 6 Dec 2021 13:31:52 +0530
 Subject: [PATCH] Enable encrypted boot support
 
 To be enabled along with secure boot configuration
 - For UEI it's to be disabled by default
 
-Signed-off-by: danie007 <danilselvan@gmail.com>
+Signed-off-by: danie007 <daniel.selvan@jasmin-infotech.com>
 ---
  configs/mx6sxsabresd_optee_defconfig | 6 ++++++
  1 file changed, 6 insertions(+)

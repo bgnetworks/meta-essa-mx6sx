@@ -1,5 +1,5 @@
 From ca9d19cfd2d54f95da2ba86337a82535ca205cd1 Mon Sep 17 00:00:00 2001
-From: danie007 <danilselvan@gmail.com>
+From: danie007 <daniel.selvan@jasmin-infotech.com>
 Date: Fri, 22 Oct 2021 11:57:00 +0530
 Subject: [PATCH] Add fastboot commands
 
@@ -9,7 +9,7 @@ Fastboot commands,
   3. read-srktbl
 are added to automate the encryption with `UUU` tool
 
-Signed-off-by: danie007 <danilselvan@gmail.com>
+Signed-off-by: danie007 <daniel.selvan@jasmin-infotech.com>
 ---
  drivers/fastboot/fb_fsl/fb_fsl_getvar.c | 143 +++++++++++++++++++++++-
  1 file changed, 138 insertions(+), 5 deletions(-)

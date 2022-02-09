@@ -26,7 +26,8 @@ See the Quick Start Guide for instructions on installing repo.
 
 ```bash
 repo init -u git://source.codeaurora.org/external/imx/imx-manifest.git -b imx-linux-hardknott -m imx-5.10.52-2.1.0.xml
-wget --directory-prefix .repo/manifests https://raw.githubusercontent.com/danie007/meta-essa-mx6sx/hardknott/scripts/imx-5.10.52-2.1.0-bgn-essa.xml
+# Only works for public repo (for private repo clone manually)
+wget --directory-prefix .repo/manifests https://raw.githubusercontent.com/bgnetworks/meta-essa-mx6sx/hardknott/scripts/imx-5.10.52-2.1.0-bgn-essa.xml
 repo init -m imx-5.10.52-2.1.0-bgn-essa.xml
 repo sync -j$(nproc)
 ```

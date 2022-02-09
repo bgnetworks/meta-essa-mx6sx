@@ -1,12 +1,12 @@
 From 0586621501208659a3b9217defeab43685a39e18 Mon Sep 17 00:00:00 2001
-From: danie007 <danilselvan@gmail.com>
+From: danie007 <daniel.selvan@jasmin-infotech.com>
 Date: Mon, 6 Dec 2021 13:27:30 +0530
 Subject: [PATCH] Enable secure boot support
 
 - HAB status logs retrievement through the hab_status command
 - Support to extend the root of trust
 
-Signed-off-by: danie007 <danilselvan@gmail.com>
+Signed-off-by: danie007 <daniel.selvan@jasmin-infotech.com>
 ---
  configs/mx6sxsabresd_optee_defconfig | 4 ++++
  1 file changed, 4 insertions(+)
