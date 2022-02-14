@@ -6,11 +6,24 @@
 # See LICENSE file for license details.
 -->
 
+<p align="center">
+    <img src="docs/assets/BGN_logo.png" alt="BGN_logo" />
+</p>
+
 # meta-bgn-essa
 
-[BG Network's](https://bgnet.works/) [Embedded Security Software Architecture](https://bgnet.works/embedded-security-software-architecture/) (ESSA), a collection of scripts, recipes, configurations, and documentation for Linux, enhances cybersecurity for IoT devices, including secure boot, encryption, authentication, and secure software updates. The ESSA enables engineers to extend a hardware root of trust to secure U-Boot, the Linux kernel, and applications in the root file system.
+[BG Network's](https://bgnet.works/) [Embedded Security Software Architecture](https://bgnet.works/embedded-security-software-architecture/) (ESSA), a collection of scripts, recipes, configurations, and documentation for Linux, enhances cybersecurity for IoT devices, including secure boot, encryption and/or authentication. The ESSA enables engineers to extend a hardware root of trust to secure U-Boot, the Linux kernel, and applications in the root file system.
 
-This repository is based on [imx-manifest](https://source.codeaurora.org/external/imx/imx-manifest/tree/?h=imx-linux-hardknott) (_5.10.52 release_) and enables NXP's HAB features on NXP's [i.MX 6 SoloX SABRE](https://www.nxp.com/document/guide/getting-started-with-i-mx-6-solox-sabre:GS-RD-IMX6SX-SABRE) hardware.
+To provide strong cybersecurity without compromising performance or functionality, this architecture leverages:
+
+- In-silicon cryptographic accelerators and secure memory
+- Linux security features
+
+The ESSA is Linux based and when used in conjunction with the SAT will support:
+
+- Hardware root of trust extended to the rootfs and software application layer Configuration of Linux Device Mapper (DM) cryptographic functions.
+- Use of AES-XTS and HMAC-SHA256 cryptographic algorithms.
+- Root of trust extended to Linux userspace.
 
 ## Supported Board
 
@@ -20,40 +33,17 @@ The following board is the only board tested in this release.
 
 ## Quick Start Guide
 
-See the Quick Start Guide for instructions on installing repo.
-
-#### 1. Install the WinSystems Linux BSP & BGN-ESSA repo
-
-```bash
-repo init -u git://source.codeaurora.org/external/imx/imx-manifest.git -b imx-linux-hardknott -m imx-5.10.52-2.1.0.xml
-# Only works for public repo (for private repo clone manually)
-wget --directory-prefix .repo/manifests https://raw.githubusercontent.com/bgnetworks/meta-essa-mx6sx/hardknott/scripts/imx-5.10.52-2.1.0-bgn-essa.xml
-repo init -m imx-5.10.52-2.1.0-bgn-essa.xml
-repo sync -j$(nproc)
-```
-
-**NOTE**: _Use_ `mx6sx-setup-essa.sh` _script for initialization._
-
-#### 2. Build
-
-_NOTE_: This integration is tested for `imx-image-multimedia` and `core-image-base`
-
-```bash
-MACHINE=imx6sxsabresd DISTRO=fsl-imx-fb source mx6sx-setup-essa.sh -b build
-bitbake imx-image-multimedia
-```
-
-**imx-image-multimedia**: "Builds an i.<d/>MX image with a GUI without any Qt content."
-
-- Use the **core-image-base** (_A console-only image that fully supports the target device hardware._) for testing purpose. It'll take minimal space and faster to build.
+See the [Quick Start Guide](docs/Quick_Start_Guide.md) for instructions of building core image and for a quick demo of **DM-Crypt with CAAM's black key**.
 
 ## Detailed Guide
 
-To download a detailed guide to BG Networks ESSA click [here](https://bgnet.works/download-essa-user-guide/).
+To know more about the [BG Networks ESSA](https://bgnet.works/download-essa-user-guide/) and its potential capabilities, [contact BG Networks](https://bgnet.works/contact-us).
+
+**NOTE**: Currently requesting for **WINSYSTEMS' `c444` ESSA guide** and needs to be updated.
 
 ## Contributing
 
-To contribute to the development of this BSP and/or submit patches for new boards please feel free to [create pull requests](https://github.com/bgnetworks/meta-bgn-essa/pulls).
+To contribute to the development of this BSP and/or submit patches for new boards please feel free to [create pull requests](https://github.com/bgnetworks/meta-essa-mx6sx/pulls).
 
 ## Maintainer(s)
 
