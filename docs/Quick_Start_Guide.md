@@ -129,12 +129,10 @@ uuu -lsusb
     <img src="assets/uuu_lsusb.png" width=600 alt="uuu_lsusb" />
 </p>
 
-Flash the U-Boot and image:
-
-# TODO - Update this command for `SDCard` flashing
+Flash the U-Boot and Yocto OS image:
 
 ```bash
-uuu -b emmc_all imx-boot core-image-base-imx6sxsabresd.wic.bz2
+uuu -b sd_all u-boot.imx core-image-base-imx6sxsabresd.wic.bz2
 ```
 
 Power down the board and set the iMX6SX SABRE EVK board to the SD card (_SD4_) boot mode following **Table 1**
