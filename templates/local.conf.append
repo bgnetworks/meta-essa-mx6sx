@@ -68,9 +68,9 @@ MACHINE_FEATURES_remove += " \
     rtc \
     "
 
-# Uncompressed image, may consume more space
-# Uncomment if required (to be used by UUU tool)
-# IMAGE_FSTYPES += "wic"
+# Uncompressed image, consume more space
+# to be used by UUU tool
+IMAGE_FSTYPES_append = " wic"
 
 # QSPI Boot
 # Uncomment the following line to set the boot medium as QSPI
