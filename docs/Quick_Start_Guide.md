@@ -237,6 +237,7 @@ Import the block key blob to create the black key used for disk encryption, add 
 ```bash
 cd /data/caam
 caam-keygen import mykey.bb importKey
+cat mykey | keyctl padd logon mykey2: @s
 
 losetup /dev/loop0 encrypted.img
 
