@@ -1,7 +1,7 @@
 <!--
 # File: README.md
 # Author: Daniel Selvan, Jasmin Infotech
-# Copyright (c) 2021 BG Networks, Inc.
+# Copyright (c) 2022 BG Networks, Inc.
 #
 # See LICENSE file for license details.
 -->
@@ -10,7 +10,7 @@
     <img src="docs/assets/BGN_logo.png" alt="BGN_logo" />
 </p>
 
-# meta-bgn-essa
+# meta-essa-mx6sx
 
 [BG Network's](https://bgnet.works/) [Embedded Security Software Architecture](https://bgnet.works/embedded-security-software-architecture/) (ESSA), a collection of scripts, recipes, configurations, and documentation for Linux, enhances cybersecurity for IoT devices, including secure boot, encryption and/or authentication. The ESSA enables engineers to extend a hardware root of trust to secure U-Boot, the Linux kernel, and applications in the root file system.
 
@@ -38,8 +38,6 @@ See the [Quick Start Guide](docs/Quick_Start_Guide.md) for instructions of build
 ## Detailed Guide
 
 To know more about the [BG Networks ESSA](https://bgnet.works/download-essa-user-guide/) and its potential capabilities, [contact BG Networks](https://bgnet.works/contact-us).
-
-**NOTE**: Currently requesting for **WINSYSTEMS' `c444` ESSA guide** and needs to be updated.
 
 ## Contributing
 
