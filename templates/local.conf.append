@@ -13,18 +13,18 @@ VIRTUAL-RUNTIME_initscript = "systemd-compat-units"
 IMAGE_OVERHEAD_FACTOR = "5"
 
 # Disabling test utilities
-IMAGE_INSTALL_remove += " \
+IMAGE_INSTALL:remove += " \
     packagegroup-fsl-tools-testapps \
     wic-tools \
     "
 
-DISTRO_FEATURES_append = " \
+DISTRO_FEATURES:append = " \
     systemd \
     optee \
     "
 
 # Ripping down unwanted DISTRO features
-DISTRO_FEATURES_remove += " \
+DISTRO_FEATURES:remove += " \
     bluetooth \
     wifi \
     3g \
@@ -57,7 +57,7 @@ PACKAGE_EXCLUDE = " \
     gnome-desktop-testing \
     "
 
-MACHINE_FEATURES_remove += " \
+MACHINE_FEATURES:remove += " \
     alsa \
     imx-alsa-plugins \
     pci \
@@ -70,7 +70,7 @@ MACHINE_FEATURES_remove += " \
 
 # Uncompressed image, consume more space
 # to be used by UUU tool
-IMAGE_FSTYPES_append = " wic"
+IMAGE_FSTYPES:append = " wic"
 
 # QSPI Boot
 # Uncomment the following line to set the boot medium as QSPI

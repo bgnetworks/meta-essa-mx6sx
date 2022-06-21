@@ -1,6 +1,6 @@
 <!--
 # File: README.md
-# Author: Daniel Selvan, Jasmin Infotech
+# Author: [Saravanan, Daniel Selvan], Jasmin Infotech
 # Copyright (c) 2022 BG Networks, Inc.
 #
 # See LICENSE file for license details.
@@ -43,3 +43,8 @@ To know more about the [BG Networks ESSA](https://bgnet.works/bgn-essa) and its 
 
 To contribute to the development of this BSP and/or submit patches for new boards please feel free to [create pull requests](https://github.com/bgnetworks/meta-essa-mx6sx/pulls).
 
+## Maintainer(s)
+
+The author(s) and maintainer(s) of this layer is(are):
+
+- Daniel Selvan D - <daniel.selvan@jasmin-infotech.com> - [danie007](https://github.com/danie007)

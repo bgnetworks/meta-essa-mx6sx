@@ -45,11 +45,11 @@ Initialize and sync repository:
 
 ```bash
 # Initiating NXP BSP
-repo init -u git://source.codeaurora.org/external/imx/imx-manifest.git -b imx-linux-hardknott -m imx-5.10.52-2.1.0.xml
+repo init -u git://source.codeaurora.org/external/imx/imx-manifest.git -b imx-linux-honister -m imx-5.15.5-1.0.0.xml
 
 # Download ESSA manifest
-wget --directory-prefix .repo/manifests https://raw.githubusercontent.com/bgnetworks/meta-essa-mx6sx/hardknott/scripts/imx-5.10.52-2.1.0-bgn-essa.xml
-repo init -m imx-5.10.52-2.1.0-bgn-essa.xml
+wget --directory-prefix .repo/manifests https://raw.githubusercontent.com/bgnetworks/meta-essa-mx6sx/honister/scripts/imx-5.15.5-1.0.0-bgn-essa.xml
+repo init -m imx-5.15.5-1.0.0-bgn-essa.xml
 
 repo sync -j$(nproc)
 ```

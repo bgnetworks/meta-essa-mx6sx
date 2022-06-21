@@ -5,7 +5,7 @@ SRC_URI = "file://sys_setup.sh"
 SRC_URI += "file://zsend.sh"
 SRC_URI += "file://disk_benchmark.sh"
 
-RDEPENDS_${PN} += "bash"
+RDEPENDS:${PN} += "bash"
 
 do_install() {
     # Installing the setup script in /data
@@ -18,7 +18,7 @@ do_install() {
     install -m 0755 ${WORKDIR}/disk_benchmark.sh ${D}/home/root/
 }
 
-FILES_${PN} += "/data/sys_setup.sh"
-FILES_${PN} += "/home/root/zsend.sh"
-FILES_${PN} += "/home/root/disk_benchmark.sh"
-FILES_${PN} += "/dmblk/"
+FILES:${PN} += "/data/sys_setup.sh"
+FILES:${PN} += "/home/root/zsend.sh"
+FILES:${PN} += "/home/root/disk_benchmark.sh"
+FILES:${PN} += "/dmblk/"

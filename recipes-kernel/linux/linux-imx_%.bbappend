@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 # Fix for CAAM RNG (based on lore.kernel.org/lkml/YSy%2FPFrem+a7npBy@gmail.com)
 SRC_URI += "file://0001-Fix-CAAM-RNG.patch"
@@ -8,6 +8,6 @@ SRC_URI += "file://0001-device-mapper-and-crypt-target.cfg"
 SRC_URI += "file://0002-caam-black-key-driver.cfg"
 SRC_URI += "file://0003-cryptographic-API-functions.cfg"
 
-do_configure_append() {
+do_configure:append() {
     cat ../*.cfg >>${B}/.config
 }
