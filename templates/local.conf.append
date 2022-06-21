@@ -79,7 +79,7 @@ IMAGE_FSTYPES:append = " wic"
 # Setting the root password as toor
 # Disable debug-tweaks before enable this
 # INHERIT += "extrausers"
-# EXTRA_USERS_PARAMS = "usermod -p $(openssl passwd toor) root"
+# EXTRA_USERS_PARAMS = "usermod -p '$(openssl passwd toor)' root"
 
 # Having separate download & shared state cache speeds up build and save space
 # Replace $HOME with your home directory
